@@ -1,7 +1,8 @@
-import { Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Cards from "./components/Cards";
+import Nav from "./components/Nav";
 import getApi from "./services/getApi";
+import "./app.css"
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -11,9 +12,12 @@ function App() {
   }, []);
 
   return (
-    <main>
-      <Cards movies={movies} />
-    </main>
+    <section>
+      <Nav />
+      <section id="sec-main">
+        <Cards movies={movies} />
+      </section>
+    </section>
   );
 }
 
