@@ -10,6 +10,8 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  ScaleFade,
+  scaleFadeConfig,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -21,104 +23,126 @@ const Card = ({ title, id, overview, poster_path }) => {
   };
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Flex
-      width="100%"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      flexWrap="wrap"
-      overflow="hidden"
-      gap="8"
-      p="10"
-    >
-      <Box width="full" shadow="dark-lg">
-        <Image
-          borderRadius="2xl"
-          width="full"
-          objectFit="cover"
-          src={getPosterUrl(poster_path)}
-          alt=""
-        />
-      </Box>
-
-      <Box
-        width="full"
-        display="flex"
+    <>
+      <Flex
+        width="100%"
         flexDirection="column"
-        alignItems="flex-start"
         justifyContent="center"
-        gap="5"
+        alignItems="center"
+        flexWrap="wrap"
+        overflow="hidden"
+        gap="8"
+        p="10"
       >
-        <Text fontSize="2xl" textTransform="capitalize" color="whiteAlpha.900">
-          {title}
-        </Text>
-        <Button
-          colorScheme="teal"
-          color="white"
-          _hover={{ bg: "#1A202C" }}
-          variant="outline"
-          onClick={onOpen}
-        >
-          Button
-        </Button>
-      </Box>
+        <Box width="full" shadow="dark-lg">
+          <Image
+            borderRadius="2xl"
+            width="full"
+            objectFit="cover"
+            src={getPosterUrl(poster_path)}
+            alt=""
+            onClick={onOpen}
+            cursor="pointer"
+            transition="all .5s ease"
+            _hover={{
+              transition: "all .5s",
+              transform: "scale(1.1)",
+            }}
+          />
+        </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent bg="gray.900">
-          <Box width="full">
-            <Image
-              margin="0 auto"
-              width="44"
-              objectFit="cover"
-              src={getPosterUrl(poster_path)}
-              alt=""
-            />
-          </Box>
+        <Box
+          width="full"
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          justifyContent="center"
+          gap="5"
+          transition="all .5s ease"
+        >
           <Text
-            margin="0 auto"
-            py="6"
-            fontSize="3xl"
+            fontSize="2xl"
             textTransform="capitalize"
             color="whiteAlpha.900"
           >
             {title}
           </Text>
-          <ModalCloseButton />
-          <ModalBody
-            display="flex"
-            flexDirection="column"
-            alignItems="flex-start"
-            justifyContent="center"
-            gap="4"
+          <Button
+            colorScheme="teal"
+            color="white"
+            _hover={{ bg: "#1A202C" }}
+            variant="outline"
+            onClick={onOpen}
           >
+            Ver Mas
+          </Button>
+        </Box>
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent
+            transition="all .5s ease"
+            width="full"
+            margin="0"
+            py="10"
+            bg="gray.900"
+          >
+            <Box width="full">
+              <Image
+                margin="0 auto"
+                width="44"
+                objectFit="cover"
+                src={getPosterUrl(poster_path)}
+                alt=""
+              />
+            </Box>
             <Text
-              fontSize="2xl"
+              margin="0 auto"
+              py="6"
+              fontSize="3xl"
               textTransform="capitalize"
               color="whiteAlpha.900"
             >
-              Description :
+              {title}
             </Text>
-
-            <Text textTransform="capitalize" color="whiteAlpha.700">
-              {overview}
-            </Text>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              colorScheme="teal"
-              color="white"
-              _hover={{ bg: "#1A202C" }}
-              variant="outline"
-              onClick={onClose}
+            <ModalCloseButton />
+            <ModalBody
+              transition="all .5s ease"
+              display="flex"
+              flexDirection="column"
+              alignItems="flex-start"
+              justifyContent="center"
+              gap="4"
+              margin="0 auto"
             >
-              View more
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </Flex>
+              <Text
+                fontSize="2xl"
+                textTransform="capitalize"
+                color="whiteAlpha.900"
+              >
+                descripcion :
+              </Text>
+
+              <Text textTransform="capitalize" color="whiteAlpha.700">
+                {overview}
+              </Text>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button
+                colorScheme="teal"
+                color="white"
+                _hover={{ bg: "#1A202C" }}
+                variant="outline"
+                onClick={onClose}
+              >
+                Cerrar
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </Flex>
+    </>
   );
 };
 
