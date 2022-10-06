@@ -4,9 +4,10 @@ import image from "../assets/disney-seeklogo.com.svg";
 
 const apiKey = "c92c07b555c1bd7604f61b31ebf4ef21";
 
-const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1
+const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-AR&page=1
 `;
-const search = `https://api.themoviedb.org/3/search/company?api_key=${apiKey}&query`;
+/* const search = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=es-AR&page=1&include_adult=true&query=${query}`;
+ */
 
 const Nav = () => {
   const [movies, setMovies] = useState([]);
@@ -25,11 +26,12 @@ const Nav = () => {
 
   const searMovie = async (e) => {
     e.preventDefault();
-    try {
-      const url = `https://api.themoviedb.org/3/search/company?api_key=${apiKey}&query=${query}`;
 
+    try {
+      const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=es-AR&page=1&include_adult=true&query=${query}`;
       const res = await fetch(url);
-      const data = res.json();
+      const data = await res.json();
+      console.log(data);
       setMovies(data.results);
     } catch (err) {
       console.log(err);
@@ -70,6 +72,7 @@ const Nav = () => {
             colorScheme="teal"
             color="white"
             _hover={{ bg: "#1A202C" }}
+            transition="all .5s"
             variant="outline"
           >
             Searh
