@@ -113,7 +113,7 @@ const Card = ({ title, id, overview, poster_path }) => {
               variant="outline"
               onClick={onClose}
             >
-              Close
+              View more
             </Button>
           </ModalFooter>
         </ModalContent>
