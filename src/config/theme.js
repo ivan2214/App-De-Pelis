@@ -10,9 +10,9 @@ const theme = extendTheme({
         margin: 0,
         padding: 0,
         boxSizing: "border-box",
-        bg: "gray.400",
         color: "white",
       },
+
       // styles for the `a`
       a: {
         color: "teal.500",
@@ -24,4 +24,4 @@ const theme = extendTheme({
   },
 });
 
-export default theme
+export default theme;
