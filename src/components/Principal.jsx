@@ -4,13 +4,22 @@ import { Box, Button, Flex, Image, Input, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import image from "../assets/icons8-film-reel-50.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getMovies, nextPage, preventPage, searchMovie } from "../redux/actions/action";
+import {
+  getMovies,
+  nextPage,
+  preventPage,
+  searchMovie,
+} from "../redux/actions/action";
 import swal from "sweetalert";
 
 const Principal = () => {
   const movies = useSelector((state) => state.movies);
 
   const loading = useSelector((state) => state.loading);
+
+  const page = useSelector((state) => state.pages);
+
+console.log(page);
 
   const dispatch = useDispatch();
 
@@ -38,10 +47,10 @@ const Principal = () => {
   };
 
   const handlePrevent = () => {
-    dispatch(preventPage());
+    dispatch(preventPage(page-1));
   };
   const handleNext = () => {
-    dispatch(nextPage())
+    dispatch(nextPage(page+1));
   };
 
   return (
