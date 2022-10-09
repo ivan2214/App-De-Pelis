@@ -1,8 +1,16 @@
-import { GET_MOVIES, LOADING, NEXT_PAGE, ON_SEARCH,PREVENT_PAGE } from "../actions/action";
+import {
+  GET_MOVIES,
+  LOADING,
+  NEXT_PAGE,
+  ON_SEARCH,
+  PAGES,
+  PREVENT_PAGE,
+} from "../actions/action";
 
 let initialState = {
   movies: [],
   loading: false,
+  pages: 1,
 };
 
 export default function reducer(state = initialState, { type, payload }) {
@@ -18,6 +26,8 @@ export default function reducer(state = initialState, { type, payload }) {
       return { ...state, movies: payload };
     case LOADING:
       return { ...state, loading: payload };
+    case PAGES:
+      return { ...state, pages: payload };
     default:
       return state; // caso por defecto
   }

@@ -3,6 +3,7 @@ export const ON_SEARCH = "ON_SEARCH";
 export const LOADING = "LOADING";
 export const NEXT_PAGE = "NEXT_PAGE";
 export const PREVENT_PAGE = "PREVENT_PAGE";
+export const PAGES = "PAGES";
 
 export function getMovies() {
   return async function (dispatch) {
@@ -35,16 +36,17 @@ export function searchMovie(query) {
         dispatch({
           type: ON_SEARCH,
           payload: data.results,
+          payload: data.page,
         }),
           dispatch({ type: LOADING, payload: false });
       });
   };
 }
 
-export function nextPage() {
+export function nextPage(page) {
   return async function (dispatch) {
     const apiKey = "c92c07b555c1bd7604f61b31ebf4ef21";
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-AR&page=2`;
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-AR&page=${page}`;
     dispatch({ type: LOADING, payload: true });
     await fetch(url)
       .then((res) => res.json())
@@ -53,14 +55,18 @@ export function nextPage() {
           type: NEXT_PAGE,
           payload: data.results,
         }),
+          dispatch({
+            type: PAGES,
+            payload: page,
+          }),
           dispatch({ type: LOADING, payload: false });
       });
   };
 }
-export function preventPage() {
+export function preventPage(page) {
   return async function (dispatch) {
     const apiKey = "c92c07b555c1bd7604f61b31ebf4ef21";
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-AR&page=1`;
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-AR&page=${page}`;
     dispatch({ type: LOADING, payload: true });
     await fetch(url)
       .then((res) => res.json())
@@ -69,6 +75,10 @@ export function preventPage() {
           type: PREVENT_PAGE,
           payload: data.results,
         }),
+          dispatch({
+            type: PAGES,
+            payload: page,
+          }),
           dispatch({ type: LOADING, payload: false });
       });
   };
