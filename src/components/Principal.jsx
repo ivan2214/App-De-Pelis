@@ -2,7 +2,7 @@ import "../app.css";
 import Cards from "./Cards";
 import { Box, Button, Flex, Image, Input, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import image from "../assets/disney-seeklogo.com.svg";
+import image from "../assets/icons8-film-reel-50.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovies, searchMovie } from "../redux/actions/action";
 import swal from 'sweetalert';
