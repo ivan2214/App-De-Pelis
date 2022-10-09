@@ -2,10 +2,10 @@ import "../app.css";
 import Cards from "./Cards";
 import { Box, Button, Flex, Image, Input, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import image from "../assets/disney-seeklogo.com.svg";
+import image from "../assets/icons8-film-reel-50.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getMovies, searchMovie } from "../redux/actions/action";
-import swal from 'sweetalert';
+import { getMovies, nextPage, preventPage, searchMovie } from "../redux/actions/action";
+import swal from "sweetalert";
 
 const Principal = () => {
   const movies = useSelector((state) => state.movies);
@@ -35,6 +35,13 @@ const Principal = () => {
         button: "Cerrar",
       });
     }
+  };
+
+  const handlePrevent = () => {
+    dispatch(preventPage());
+  };
+  const handleNext = () => {
+    dispatch(nextPage())
   };
 
   return (
@@ -81,6 +88,28 @@ const Principal = () => {
           </Box>
         </form>
       </Flex>
+
+      <section className="sec-buttons">
+        <Button
+          colorScheme="teal"
+          color="white"
+          _hover={{ bg: "#1A202C" }}
+          variant="outline"
+          onClick={handlePrevent}
+        >
+          anterior
+        </Button>
+        <Button
+          colorScheme="teal"
+          color="white"
+          _hover={{ bg: "#1A202C" }}
+          variant="outline"
+          onClick={handleNext}
+        >
+          siguiente
+        </Button>
+      </section>
+
       <section id="sec-main">
         {loading ? (
           <Spinner
