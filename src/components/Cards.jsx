@@ -4,7 +4,7 @@ import Card from "./Card";
 const Cards = ({ movies }) => {
   return (
     <>
-      {movies.map((movie) => {
+      {movies?.map((movie) => {
         return (
           <Card
             key={movie.id}

@@ -1,38 +1,31 @@
 import "../app.css";
 import Cards from "./Cards";
-import { Box, Button, Flex, Image, Input } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Input, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import image from "../assets/disney-seeklogo.com.svg";
-const apiKey = "c92c07b555c1bd7604f61b31ebf4ef21";
-const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-AR&page=1`;
+import { useDispatch, useSelector } from "react-redux";
+import { getMovies, searchMovie } from "../redux/actions/action";
 
 const Principal = () => {
-  const [movies, setMovies] = useState([]);
+  const movies = useSelector((state) => state.movies);
 
-  const [query, setQuery] = useState("");
+  const loading = useSelector((state) => state.loading);
+  
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setMovies(data.results));
-  }, []);
+    dispatch(getMovies());
+  }, [dispatch]);
+
+  const [query, setQuery] = useState("");
 
   const handleChange = (e) => {
     setQuery(e.target.value);
   };
 
-  const searMovie = async (e) => {
+  const searMovie = (e) => {
     e.preventDefault();
-
-    try {
-      const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=es-AR&page=1&include_adult=true&query=${query}`;
-      const res = await fetch(url);
-      const data = await res.json();
-      console.log(data);
-      setMovies(data.results);
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(searchMovie(query));
   };
 
   return (
@@ -80,7 +73,17 @@ const Principal = () => {
         </form>
       </Flex>
       <section id="sec-main">
-        <Cards movies={movies} />
+        {loading ? (
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
+        ) : (
+          <Cards movies={movies} />
+        )}
       </section>
     </>
   );
