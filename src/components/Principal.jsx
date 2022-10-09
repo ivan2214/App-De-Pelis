@@ -5,12 +5,13 @@ import React, { useEffect, useState } from "react";
 import image from "../assets/disney-seeklogo.com.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovies, searchMovie } from "../redux/actions/action";
+import swal from 'sweetalert';
 
 const Principal = () => {
   const movies = useSelector((state) => state.movies);
 
   const loading = useSelector((state) => state.loading);
-  
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,7 +26,15 @@ const Principal = () => {
 
   const searMovie = (e) => {
     e.preventDefault();
-    dispatch(searchMovie(query));
+    if (query.length > 0) dispatch(searchMovie(query));
+    else {
+      swal({
+        title: "Error pelicula no encontrada",
+        text: "Introduce una pelicula porfavor",
+        icon: "error",
+        button: "Cerrar",
+      });
+    }
   };
 
   return (

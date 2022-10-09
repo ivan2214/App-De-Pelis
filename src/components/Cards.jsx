@@ -12,6 +12,7 @@ const Cards = ({ movies }) => {
             title={movie.title}
             id={movie.id}
             overview={movie.overview}
+            vote_average={movie.vote_average}
           />
         );
       })}

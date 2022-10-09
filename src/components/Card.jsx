@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   Flex,
@@ -17,13 +18,13 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const Card = ({ title, id, overview, poster_path }) => {
+const Card = ({ title, id, overview, poster_path, vote_average }) => {
   const getPosterUrl = (posterPatch) => {
     return `https://www.themoviedb.org/t/p/w220_and_h330_face/${posterPatch}`;
   };
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <>
+    <article>
       <Flex
         width="100%"
         flexDirection="column"
@@ -36,11 +37,12 @@ const Card = ({ title, id, overview, poster_path }) => {
       >
         <Box width="full" shadow="dark-lg">
           <Image
+            display="block"
             borderRadius="2xl"
             width="full"
             objectFit="cover"
             src={getPosterUrl(poster_path)}
-            alt=""
+            alt={overview}
             onClick={onOpen}
             cursor="pointer"
             transition="all .5s ease"
@@ -51,30 +53,38 @@ const Card = ({ title, id, overview, poster_path }) => {
           />
         </Box>
 
+        <Box width="full">
+          <Badge textAlign="left" fontSize="1.2em" colorScheme="yellow">
+            {vote_average}
+          </Badge>
+        </Box>
         <Box
-          width="full"
+          width="100%"
+          transition="all .5s ease"
+          minHeight="48"
+          maxHeight="3xl"
           display="flex"
           flexDirection="column"
-          alignItems="flex-start"
-          justifyContent="center"
-          gap="5"
-          transition="all .5s ease"
+          justifyContent="space-between"
         >
           <Text
             fontSize="2xl"
             textTransform="capitalize"
             color="whiteAlpha.900"
+            textAlign="left"
           >
             {title}
           </Text>
+
           <Button
             colorScheme="teal"
             color="white"
             _hover={{ bg: "#1A202C" }}
             variant="outline"
             onClick={onOpen}
+            py="6"
           >
-            Ver Mas
+            Ver Mas Info
           </Button>
         </Box>
 
@@ -142,7 +152,7 @@ const Card = ({ title, id, overview, poster_path }) => {
           </ModalContent>
         </Modal>
       </Flex>
-    </>
+    </article>
   );
 };
 
