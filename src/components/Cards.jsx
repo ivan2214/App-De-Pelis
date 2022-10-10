@@ -13,6 +13,7 @@ const Cards = ({ movies }) => {
             id={movie.id}
             overview={movie.overview}
             vote_average={movie.vote_average}
+            backdrop_path={movie.backdrop_path}
           />
         );
       })}

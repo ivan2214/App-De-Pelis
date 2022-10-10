@@ -19,7 +19,7 @@ const Principal = () => {
 
   const page = useSelector((state) => state.pages);
 
-console.log(page);
+  console.log(page);
 
   const dispatch = useDispatch();
 
@@ -47,10 +47,10 @@ console.log(page);
   };
 
   const handlePrevent = () => {
-    dispatch(preventPage(page-1));
+    dispatch(preventPage(page - 1));
   };
   const handleNext = () => {
-    dispatch(nextPage(page+1));
+    dispatch(nextPage(page + 1));
   };
 
   return (
@@ -97,37 +97,49 @@ console.log(page);
           </Box>
         </form>
       </Flex>
-
       <section className="sec-buttons">
-        <Button
-          colorScheme="teal"
-          color="white"
-          _hover={{ bg: "#1A202C" }}
-          variant="outline"
-          onClick={handlePrevent}
-        >
-          anterior
-        </Button>
-        <Button
-          colorScheme="teal"
-          color="white"
-          _hover={{ bg: "#1A202C" }}
-          variant="outline"
-          onClick={handleNext}
-        >
-          siguiente
-        </Button>
+        {page < 2 ? null : (
+          <Button
+            colorScheme="teal"
+            color="white"
+            _hover={{ bg: "#1A202C" }}
+            variant="outline"
+            onClick={handlePrevent}
+          >
+            anterior
+          </Button>
+        )}
+        {page >= 35394 ? null : (
+          <Button
+            colorScheme="teal"
+            color="white"
+            _hover={{ bg: "#1A202C" }}
+            variant="outline"
+            onClick={handleNext}
+          >
+            siguiente
+          </Button>
+        )}
       </section>
 
       <section id="sec-main">
         {loading ? (
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="blue.500"
-            size="xl"
-          />
+          <Box
+            width="98vw"
+            margin="0 auto"
+            height="100%"
+            display="grid"
+            placeItems="center"
+          >
+            <Spinner
+              thickness="8px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+              margin="0 auto"
+            />
+          </Box>
         ) : (
           <Cards movies={movies} />
         )}
