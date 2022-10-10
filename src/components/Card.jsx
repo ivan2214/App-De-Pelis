@@ -18,7 +18,14 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const Card = ({ title, id, overview, poster_path, vote_average }) => {
+const Card = ({
+  title,
+  id,
+  overview,
+  poster_path,
+  vote_average,
+  backdrop_path,
+}) => {
   const getPosterUrl = (posterPatch) => {
     return `https://www.themoviedb.org/t/p/w220_and_h330_face/${posterPatch}`;
   };
@@ -54,8 +61,15 @@ const Card = ({ title, id, overview, poster_path, vote_average }) => {
         </Box>
 
         <Box width="full">
-          <Badge textAlign="left" fontSize="1.2em" colorScheme="yellow">
-            {vote_average}
+          <Badge
+            width="fit-content"
+            px="2"
+            variant="outline"
+            textAlign="left"
+            fontSize="1.2em"
+            colorScheme="yellow"
+          >
+            ⭐{vote_average}
           </Badge>
         </Box>
         <Box
@@ -88,27 +102,31 @@ const Card = ({ title, id, overview, poster_path, vote_average }) => {
           </Button>
         </Box>
 
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal width="100%" isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent
-            transition="all .5s ease"
-            width="full"
-            margin="0"
-            py="10"
-            bg="gray.900"
-          >
+          <ModalContent transition="all .5s ease" margin="0" bg="gray.900">
             <Box width="full">
               <Image
+                display="block"
+                borderRadius="2xl"
+                py="10"
+                width={[
+                  "60%", // 0-30em
+                  "60%", // 30em-48em
+                  "60%", // 48em-62em
+                  "60%", // 62em+
+                ]}
                 margin="0 auto"
-                width="44"
                 objectFit="cover"
-                src={getPosterUrl(poster_path)}
-                alt=""
+                src={getPosterUrl(backdrop_path)}
+                alt={overview}
               />
             </Box>
             <Text
               margin="0 auto"
-              py="6"
+              width="100%"
+              textAlign="center"
+              p="2"
               fontSize="3xl"
               textTransform="capitalize"
               color="whiteAlpha.900"

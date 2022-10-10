@@ -36,7 +36,6 @@ export function searchMovie(query) {
         dispatch({
           type: ON_SEARCH,
           payload: data.results,
-          payload: data.page,
         }),
           dispatch({ type: LOADING, payload: false });
       });
